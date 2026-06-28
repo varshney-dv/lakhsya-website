@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap');
+
+:root {
+  /* Day Theme (Pastels, warm and playful) */
+  --bg-primary: #fffcf0;
+  --bg-secondary: #fdf5d6;
+  --bg-card: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #5d6d7e;
+  --accent-primary: #ff6b6b; /* Playful coral */
+  --accent-secondary: #4ecdc4; /* Playful mint */
+  --accent-tertiary: #ffbe0b; /* Playful yellow */
+  --color-toy-red: #ff6b6b;
+  --color-toy-green: #4ecdc4;
+  --color-toy-yellow: #ffbe0b;
+  --color-toy-blue: #3a86c8;
+  --color-toy-purple: #8338ec;
+  --border-color: #f1ebd9;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 10px 20px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 20px 30px -5px rgba(220, 180, 100, 0.15), 0 8px 12px -6px rgba(220, 180, 100, 0.1);
+  --font-family-title: 'Fredoka', sans-serif;
+  --font-family-body: 'Quicksand', sans-serif;
+  
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-blur: blur(8px);
+}
+
+html.dark {
+  /* Night Theme (Glowing, dark fantasy, starlight) */
+  --bg-primary: #0f172a;
+  --bg-secondary: #020617;
+  --bg-card: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-primary: #f43f5e; /* Glowing coral red */
+  --accent-secondary: #2dd4bf; /* Glowing mint teal */
+  --accent-tertiary: #fbbf24; /* Glowing yellow */
+  --color-toy-red: #f43f5e;
+  --color-toy-green: #10b981;
+  --color-toy-yellow: #fbbf24;
+  --color-toy-blue: #3b82f6;
+  --color-toy-purple: #a855f7;
+  --border-color: #334155;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 10px 20px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 20px 30px -5px rgba(0, 0, 0, 0.5), 0 8px 12px -6px rgba(0, 0, 0, 0.4);
+  
+  --glass-bg: rgba(30, 41, 59, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+body {
+  font-family: var(--font-family-body);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(3deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-reverse {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(15px) rotate(-3deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-gentle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes bubble-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  80% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* CSS Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  border-radius: 24px;
+}
+
+.title-gradient {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Floating bubbles background */
+.bubbles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -100px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+  border-radius: 50%;
+  animation: rise 25s infinite linear;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2), 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+html.dark .bubble {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.01));
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.05), 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes rise {
+  0% {
+    bottom: -100px;
+    transform: translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    bottom: 110%;
+    transform: translateX(100px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Decorative Stars for Night Mode */
+.stars-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+html.dark .stars-container {
+  display: block;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  animation: blink 3s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* Base custom interactive scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-secondary);
+  border-radius: 6px;
+  border: 3px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
