@@ -38,7 +38,7 @@ export default function Home() {
         fontWeight: 500,
       }}>
         <p>
-          Made with ❤️ for <span style={{ color: "var(--accent-primary)", fontWeight: 700 }}>Lakshya Varshney</span> by Antigravity AI Coding Assistant.
+          Made with ❤️ for <span style={{ color: "var(--accent-primary)", fontWeight: 700 }}>Lakshya Varshney</span>.
         </p>
         <p style={{ fontSize: "11px", marginTop: "5px", opacity: 0.7 }}>
           © {new Date().getFullYear()} • St. Fidelies School Aligarh Explorer
